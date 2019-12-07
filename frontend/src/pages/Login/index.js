@@ -14,9 +14,8 @@ export default function Login({ history }) {
 
         const response = await api.post('/login', { email, password });
 
-        console.log(response.data);
 
-
+        //
 
         if (response.data.loginType === 'Client') {
             console.log("esse user é cliente");
