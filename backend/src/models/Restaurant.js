@@ -18,10 +18,6 @@ const RestaurantSchema = new mongoose.Schema({
             type: String,
             required: true,
         },
-        stock: {
-            type: Number,
-            required: true,
-        }
     }],
     coordinateX: {
         type: Number,

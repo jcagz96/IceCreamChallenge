@@ -6,6 +6,7 @@ import Main from './pages/Main';
 import ClientRegister from './pages/ClientRegister';
 import RestaurantRegister from './pages/RestaurantRegister';
 import DashboardClient from './pages/DashboardClient';
+import DashboardRestaurant from './pages/DashboardRestaurant';
 
 export default function Routes() {
     return (
@@ -16,6 +17,7 @@ export default function Routes() {
                 <Route path="/clientregister" component={ClientRegister} />
                 <Route path="/restaurantregister" component={RestaurantRegister} />
                 <Route path="/dashboardclient" component={DashboardClient} />
+                <Route path="/dashboardrestaurant" component={DashboardRestaurant} />
             </Switch>
         </BrowserRouter>
     );

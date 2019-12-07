@@ -6,10 +6,12 @@ import api from '../../services/api';
 
 
 
-export default function Dashboardclient(props) {
+export default function DashboardClient(props) {
 
     const [iceCreamName, setIceCreamName] = useState('');
     const [restaurants, setRestaurants] = useState([]);
+    const [showRestaurant, setShowRestaurant] = useState(true);
+    const [restaurantIndex, setRestaurantIndex] = useState(0);
 
 
     useEffect(() => {
@@ -42,20 +44,43 @@ export default function Dashboardclient(props) {
     }, [iceCreamName])
 
 
+    function handleBuy() {
+        setShowRestaurant(false);
+        var idx = restaurantIndex + 1;
 
+        if (idx < restaurants.length) {
+            setRestaurantIndex(idx);
+        }
 
+        console.log(restaurants);
+    }
+
+    function handleShowMore() {
+        setShowRestaurant(true);
+    }
 
     return (
         <>
-            <h2>You choose: {iceCreamName}</h2>
-            {restaurants.map(r => (
-                <div key={r.email}>
-                    <p>Gelataria: {r.name}</p>
-                    <p>Email: {r.email}</p>
-                    <p style={{ marginBottom: 10 }}>Distancia: {r.distance}</p>
+            <h1>You choose: {iceCreamName}</h1>
+
+            {restaurants.length > 0 && showRestaurant && (
+                <div>
+                    <p>
+                        Gelataria: {restaurants[restaurantIndex].name}
+                    </p>
+                    <p>
+                        Email: {restaurants[restaurantIndex].email}
+                    </p>
+                    <p>
+                        Distancia: {restaurants[restaurantIndex].distance}
+                    </p>
+
+                    <button onClick={handleBuy}>Buy</button>
 
                 </div>
-            ))}
+            )}
+
+            <button onClick={handleShowMore}>Show more</button>
         </>
     )
 }

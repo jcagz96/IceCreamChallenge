@@ -25,6 +25,18 @@ module.exports = {
             results.push(obj);
         })
 
+
+        //order restaurant by distance
+        results.sort(function (a, b) {
+            if (a.distance < b.distance) //sort string ascending
+                return -1
+            if (a.distance > b.distance)
+                return 1
+            return 0 //default return value (no sorting)
+        })
+
+
+        console.log(results);
         /*
         var restaurantWithLessDistance = results[0];
 

@@ -27,9 +27,9 @@ export default function Login({ history }) {
         else {
             if (response.data.loginType === 'Restaurant') {
                 console.log("esse user é restaurante");
-                localStorage.setItem('user', response.data);
+                localStorage.setItem('user', response.data.name);
                 localStorage.setItem('type', response.data.loginType);
-                history.push('/');
+                history.push('/dashboardrestaurant');
             }
             else {
                 console.log("erro no login");

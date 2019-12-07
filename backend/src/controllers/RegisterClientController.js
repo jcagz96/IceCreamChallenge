@@ -9,8 +9,6 @@ module.exports = {
             email,
             password,
             creditCard,
-            coordinateX: 6,
-            coordinateY: 4
         })
 
         return res.json(client);

@@ -17,14 +17,6 @@ const ClientSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
-    coordinateX: {
-        type: Number,
-        required: true,
-    },
-    coordinateY: {
-        type: Number,
-        required: true,
-    },
     createdAt: {
         type: Date,
         default: Date.now
