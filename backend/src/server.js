@@ -7,7 +7,6 @@ const app = express();
 
 const routes = require("./routes");
 
-//const mongoString = "mongodb+srv://garcez:teste1234@blogapp-prod-rvcpo.mongodb.net/IceCream?retryWrites=true&w=majority"
 
 mongoose.connect(process.env.DB_CONNECTION,
     {
