@@ -9,7 +9,7 @@ module.exports = {
             email,
             password,
             iceCream,
-            coordinateX: 6,
+            coordinateX: 4,
             coordinateY: 4
         })
 

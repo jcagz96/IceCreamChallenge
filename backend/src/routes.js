@@ -7,7 +7,9 @@ const RegisterRestaurantController = require('./controllers/RegisterRestaurantCo
 const LoginController = require('./controllers/LoginController');
 const IceCreamsController = require('./controllers/IceCreamsController');
 const RestaurantsController = require('./controllers/RestaurantsController');
-const RestaurantsWithAFlavor = require('./controllers/RestaurantsWithFlavorController')
+const RestaurantsWithAFlavor = require('./controllers/RestaurantsWithFlavorController');
+
+const ChooseRestaurantController = require('./controllers/ChooseRestaurantController');
 
 routes.post('/registerClient', RegisterClientController.store);
 routes.post('/registerRestaurant', RegisterRestaurantController.store);
@@ -15,7 +17,8 @@ routes.post('/login', LoginController.show);
 routes.get('/restaurants', RestaurantsController.index);
 routes.get('/icecreams', IceCreamsController.index);
 routes.get('/restaurantsWithIceCream', IceCreamsController.index);
-routes.get('/restaurantsflavor', RestaurantsWithAFlavor.show);
+routes.post('/restaurantsflavor', RestaurantsWithAFlavor.show);
+routes.post('/chooserestaurant', ChooseRestaurantController.show);
 
 
 
