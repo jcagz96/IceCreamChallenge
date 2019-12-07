@@ -15,7 +15,8 @@ export default function Login({ history }) {
         const response = await api.post('/login', { email, password });
 
 
-        //
+        //teste branch socketIO_2
+
 
         if (response.data.loginType === 'Client') {
             console.log("esse user é cliente");
@@ -35,8 +36,6 @@ export default function Login({ history }) {
 
             }
         }
-
-
     }
 
     return (
