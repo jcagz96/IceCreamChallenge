@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
 
+import './styles.css';
+
 export default function Main({ history }) {
 
     const [icecreams, setIceCreams] = useState([]);
@@ -41,12 +43,12 @@ export default function Main({ history }) {
 
     return (
         <div className="container">
-            <h1>CHOOSE YOU ICECREAM {user}</h1>
+            <h2 className="welcome">Hi, {user}. Choose your IceCream</h2>
 
             {icecreams.map(icecream => (
-                <div key={icecream}>
+                <div className="element" key={icecream}>
                     <h2>{icecream}</h2>
-                    <button onClick={() => handleChoice(icecream)}>Encomendar</button>
+                    <button className="btn" onClick={() => handleChoice(icecream)}>Encomendar</button>
                 </div>
             ))}
         </div>

@@ -4,6 +4,8 @@ import api from '../../services/api';
 
 import socketio from 'socket.io-client';
 
+import './styles.css';
+
 export default function DashboardRestaurant() {
 
     const [requests, setRequests] = useState([]);
@@ -37,18 +39,22 @@ export default function DashboardRestaurant() {
     return (
         <>
             <h1>Dashboard:</h1>
+            <div className="content">
 
-            <ul className="notifications">
-                {requests.map(request => (
-                    <li key={request._id}>
-                        <p>
-                            o cliente : <strong> {request.client.name}</strong> está a tentar comprar <strong>{request.icecream}</strong> à sua loja  <strong>( {request.restaurant.name} )</strong>
-                        </p>
-                        <button className="accept" onClick={() => handleAccept(request._id)}>ACEITAR</button>
-                        <button className="reject" onClick={() => handleReject(request._id)}>REJEITAR</button>
-                    </li>
-                ))}
-            </ul>
+
+
+                <ul className="notifications">
+                    {requests.map(request => (
+                        <li key={request._id}>
+                            <p>
+                                o cliente : <strong> {request.client.name}</strong> está a tentar comprar <strong>{request.icecream}</strong> à sua loja  <strong>( {request.restaurant.name} )</strong>
+                            </p>
+                            <button className="accept" onClick={() => handleAccept(request._id)}>ACEITAR</button>
+                            <button className="reject" onClick={() => handleReject(request._id)}>REJEITAR</button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </>
     )
 }

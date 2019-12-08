@@ -1,0 +1,18 @@
+
+li button {
+    margin-right: 10px;
+    border: 0;
+    font-weight: bold;
+    margin-top: 10px;
+    background-color: #fff;
+    cursor: pointer;
+}
+
+ul.notifications li button.accept {
+    color: #84C870;
+}
+
+ul.notifications li button.reject {
+    color: #E55E5E;
+}
+

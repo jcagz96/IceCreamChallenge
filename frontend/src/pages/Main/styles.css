@@ -1,0 +1,14 @@
+.element{
+    margin: 20px auto 0;
+    max-width: 200px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .welcome {
+      font-size: 200;
+      font-weight: bold;
+      color: coral;
+  }

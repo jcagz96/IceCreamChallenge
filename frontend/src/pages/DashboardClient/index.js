@@ -4,6 +4,8 @@ import api from '../../services/api';
 
 import socketio from 'socket.io-client';
 
+import './styles.css';
+
 export default function DashboardClient(props) {
 
     const [iceCreamName, setIceCreamName] = useState('');
@@ -25,8 +27,17 @@ export default function DashboardClient(props) {
         socket.on('order_response', data => {
             console.log("resposta-->", data);
             alert(`Sua pedido de gelado de ${data.icecream} foi ${data.approved ? 'APROVADO' : 'REJEITADO'}`);
+
+            if (data.approved) {
+
+            }
+            else {
+                setShowRestaurant(true);
+                var idx = restaurantIndex + 1;
+                setRestaurantIndex(idx);
+            }
         })
-    }, [socket]);
+    }, [restaurantIndex, socket]);
 
 
     useEffect(() => {
@@ -94,7 +105,7 @@ export default function DashboardClient(props) {
         <>
             <h1>You choose: {iceCreamName}</h1>
 
-            {restaurants.length > 0 && showRestaurant && (
+            {restaurants.length > 0 && showRestaurant && restaurantIndex && (
                 <div>
                     <p>
                         Gelataria: {restaurants[restaurantIndex].name}
@@ -106,12 +117,12 @@ export default function DashboardClient(props) {
                         Distancia: {restaurants[restaurantIndex].distance}
                     </p>
 
-                    <button onClick={handleBuy}>Buy</button>
+                    <button className="btn" style={{ marginTop: 10, marginBottom: 10 }} onClick={handleBuy}>Buy</button>
 
                 </div>
             )}
 
-            <button onClick={handleShowMore}>Show more</button>
+            <button className="btn" onClick={handleShowMore}>Show next</button>
         </>
     )
 }
