@@ -10,6 +10,9 @@ const RestaurantsController = require('./controllers/RestaurantsController');
 const RestaurantsWithAFlavor = require('./controllers/RestaurantsWithFlavorController');
 const OrdersController = require('./controllers/OrdersController');
 
+const ApprovalController = require('./controllers/ApprovalController');
+const RejectionController = require('./controllers/RejectionController');
+
 const ChooseRestaurantController = require('./controllers/ChooseRestaurantController');
 
 routes.post('/registerClient', RegisterClientController.store);
@@ -21,6 +24,8 @@ routes.get('/restaurantsWithIceCream', IceCreamsController.index);
 routes.post('/restaurantsflavor', RestaurantsWithAFlavor.show);
 routes.post('/chooserestaurant', ChooseRestaurantController.show);
 routes.post('/orders', OrdersController.store);
+routes.post('/orders/:order_id/approvals', ApprovalController.store);
+routes.post('/orders/:order_id/rejections', RejectionController.store);
 
 
 module.exports = routes;

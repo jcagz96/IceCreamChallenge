@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 
 import api from '../../services/api';
 
@@ -11,7 +11,22 @@ export default function DashboardClient(props) {
     const [showRestaurant, setShowRestaurant] = useState(true);
     const [restaurantIndex, setRestaurantIndex] = useState(0);
 
-    const [requests, setRequests] = useState([]);
+
+    const user_id = localStorage.getItem('userIdClient');
+
+    const socket = useMemo(() => socketio('http://localhost:3333', {
+        query: {
+            user_id,
+        }
+    }), [user_id]);
+
+    useEffect(() => {
+
+        socket.on('order_response', data => {
+            console.log("resposta-->", data);
+            alert(`Sua pedido de gelado de ${data.icecream} foi ${data.approved ? 'APROVADO' : 'REJEITADO'}`);
+        })
+    }, [socket]);
 
 
     useEffect(() => {
@@ -43,30 +58,15 @@ export default function DashboardClient(props) {
         loadRestaurants();
     }, [iceCreamName])
 
-    /*
-    useEffect(() => {
 
-        const user_id = localStorage.getItem('userId');
-
-        const socket = socketio('http://localhost:3333', {
-            query: {
-                user_id,
-            }
-        });
-
-        socket.on('order_request', data => {
-            console.log("data-->", data);
-        })
-    }, []);
-    */
 
     async function handleBuy() {
 
         var restaurantId = restaurants[restaurantIndex].id;
-        var clientId = localStorage.getItem('userId');
+        var clientId = localStorage.getItem('userIdClient');
 
         console.log(restaurantId);
-        console.log(clientId);
+        console.log("cliente no localstorage : " + clientId);
 
 
         await api.post('/orders', {

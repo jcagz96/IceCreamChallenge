@@ -18,14 +18,23 @@ module.exports = {
             price,
         })
 
+        await order.populate('restaurant').populate('client').execPopulate();
 
 
-        const ownerSocket = req.connectdUsers[client];
+        const ownerSocket = req.connectdUsers[restaurant];
+        // const clientSocket = req.connectdUsers[client];
 
         if (ownerSocket) {
             console.log("deuuu");
             req.io.to(ownerSocket).emit('order_request', order);
         }
+
+        /*
+        if (clientSocket) {
+            console.log("deuuu client");
+            req.io.to(clientSocket).emit('order_request', order);
+        }
+        */
 
         return res.json(order);
     }
