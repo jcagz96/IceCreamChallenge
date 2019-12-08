@@ -15,7 +15,7 @@ module.exports = {
 
         if (client) {
             if (req.body.password === client.password) {
-                return res.json({ loginType: "Client", name: client.name, email: client.email });
+                return res.json({ id: client._id, loginType: "Client", name: client.name, email: client.email });
             }
             else {
                 return res.status(400).json({ error: 'wrong password' });
@@ -26,7 +26,7 @@ module.exports = {
 
         if (restaurant) {
             if (req.body.password === restaurant.password) {
-                return res.json({ loginType: "Restaurant", name: restaurant.name, email: restaurant.email });
+                return res.json({ id: restaurant._id, loginType: "Restaurant", name: restaurant.name, email: restaurant.email });
             }
             else {
                 return res.status(400).json({ error: 'wrong password' });

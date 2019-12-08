@@ -22,6 +22,7 @@ export default function Login({ history }) {
             console.log("esse user é cliente");
             localStorage.setItem('user', response.data.name);
             localStorage.setItem('type', response.data.loginType);
+            localStorage.setItem('userId', response.data.id);
             history.push('/');
         }
         else {
@@ -29,6 +30,7 @@ export default function Login({ history }) {
                 console.log("esse user é restaurante");
                 localStorage.setItem('user', response.data.name);
                 localStorage.setItem('type', response.data.loginType);
+                localStorage.setItem('userId', response.data.id);
                 history.push('/dashboardrestaurant');
             }
             else {

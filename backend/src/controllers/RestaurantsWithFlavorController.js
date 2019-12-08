@@ -17,6 +17,7 @@ module.exports = {
         restaurants.map(r => {
             const distance = Math.sqrt((r.coordinateX ** 2) + (r.coordinateY ** 2));
             var obj = {
+                id: r._id,
                 name: r.name,
                 email: r.email,
                 chosenFlavor: flavor,

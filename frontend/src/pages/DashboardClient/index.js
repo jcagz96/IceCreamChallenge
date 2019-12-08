@@ -2,9 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 import api from '../../services/api';
 
-
-
-
+import socketio from 'socket.io-client';
 
 export default function DashboardClient(props) {
 
@@ -12,6 +10,8 @@ export default function DashboardClient(props) {
     const [restaurants, setRestaurants] = useState([]);
     const [showRestaurant, setShowRestaurant] = useState(true);
     const [restaurantIndex, setRestaurantIndex] = useState(0);
+
+    const [requests, setRequests] = useState([]);
 
 
     useEffect(() => {
@@ -43,8 +43,39 @@ export default function DashboardClient(props) {
         loadRestaurants();
     }, [iceCreamName])
 
+    /*
+    useEffect(() => {
 
-    function handleBuy() {
+        const user_id = localStorage.getItem('userId');
+
+        const socket = socketio('http://localhost:3333', {
+            query: {
+                user_id,
+            }
+        });
+
+        socket.on('order_request', data => {
+            console.log("data-->", data);
+        })
+    }, []);
+    */
+
+    async function handleBuy() {
+
+        var restaurantId = restaurants[restaurantIndex].id;
+        var clientId = localStorage.getItem('userId');
+
+        console.log(restaurantId);
+        console.log(clientId);
+
+
+        await api.post('/orders', {
+            icecream: iceCreamName,
+            restaurant: restaurantId,
+            client: clientId,
+            price: "88",
+        })
+
         setShowRestaurant(false);
         var idx = restaurantIndex + 1;
 
