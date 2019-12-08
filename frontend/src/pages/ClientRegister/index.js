@@ -14,7 +14,7 @@ export default function ClientRegister({ history }) {
 
         await api.post('/registerClient', { name, email, password, creditCard });
 
-        history.push('/login');
+        history.push('/');
     }
 
     return (

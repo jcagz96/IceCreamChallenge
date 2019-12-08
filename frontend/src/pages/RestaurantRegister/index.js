@@ -18,7 +18,7 @@ export default function RestaurantRegister({ history }) {
 
         await api.post('/registerRestaurant', { name, email, password, iceCream, coordinateX, coordinateY });
 
-        history.push('/login');
+        history.push('/');
     }
 
 
