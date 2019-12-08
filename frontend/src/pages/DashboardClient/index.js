@@ -3,6 +3,7 @@ import React, { useState, useEffect, useMemo } from 'react';
 import api from '../../services/api';
 
 import socketio from 'socket.io-client';
+import { Link } from 'react-router-dom';
 
 import './styles.css';
 
@@ -10,8 +11,6 @@ export default function DashboardClient(props) {
 
     const [iceCreamName, setIceCreamName] = useState('');
     const [restaurants, setRestaurants] = useState([]);
-    const [showRestaurant, setShowRestaurant] = useState(true);
-    const [restaurantIndex, setRestaurantIndex] = useState(0);
 
 
     const user_id = localStorage.getItem('userIdClient');
@@ -26,18 +25,11 @@ export default function DashboardClient(props) {
 
         socket.on('order_response', data => {
             console.log("resposta-->", data);
-            alert(`Sua pedido de gelado de ${data.icecream} foi ${data.approved ? 'APROVADO' : 'REJEITADO'}`);
+            alert(`Sua pedido de gelado de ${data.icecream} foi ${data.approved ? `APROVADO \no seu gelado foi enviado para a sua morada\n` : 'o seu gelado foi REJEITADO encomende na outra loja apresentada'}`);
 
-            if (data.approved) {
 
-            }
-            else {
-                setShowRestaurant(true);
-                var idx = restaurantIndex + 1;
-                setRestaurantIndex(idx);
-            }
         })
-    }, [restaurantIndex, socket]);
+    }, [restaurants, socket]);
 
 
     useEffect(() => {
@@ -73,7 +65,8 @@ export default function DashboardClient(props) {
 
     async function handleBuy() {
 
-        var restaurantId = restaurants[restaurantIndex].id;
+        //var restaurantId = restaurants[restaurantIndex].id;
+        var restaurantId = restaurants[0].id;
         var clientId = localStorage.getItem('userIdClient');
 
         console.log(restaurantId);
@@ -87,34 +80,37 @@ export default function DashboardClient(props) {
             price: "88",
         })
 
-        setShowRestaurant(false);
-        var idx = restaurantIndex + 1;
-
-        if (idx < restaurants.length) {
-            setRestaurantIndex(idx);
-        }
+        restaurants.splice(0, 1);
+        setRestaurants(restaurants.splice(0, 1))
 
         console.log(restaurants);
+
     }
 
     function handleShowMore() {
-        setShowRestaurant(true);
+        restaurants.splice(0, 1);
+        setRestaurants(restaurants.splice(0, 1))
     }
+
+
 
     return (
         <>
             <h1>You choose: {iceCreamName}</h1>
 
-            {restaurants.length > 0 && showRestaurant && restaurantIndex && (
+            {restaurants.length > 0 && (
                 <div>
                     <p>
-                        Gelataria: {restaurants[restaurantIndex].name}
+                        Gelataria: {restaurants[0].name}
                     </p>
                     <p>
-                        Email: {restaurants[restaurantIndex].email}
+                        Email: {restaurants[0].email}
                     </p>
                     <p>
-                        Distancia: {restaurants[restaurantIndex].distance}
+                        Distancia: {restaurants[0].distance}
+                    </p>
+                    <p>
+                        Tempo: {Math.round(restaurants[0].distance * 2)} minutos
                     </p>
 
                     <button className="btn" style={{ marginTop: 10, marginBottom: 10 }} onClick={handleBuy}>Buy</button>
@@ -122,7 +118,29 @@ export default function DashboardClient(props) {
                 </div>
             )}
 
-            <button className="btn" onClick={handleShowMore}>Show next</button>
+            {restaurants.length > 0 && (
+                <>
+                    <button className="btn" onClick={handleShowMore}>Show next</button>
+                    <Link to="/main">
+                        <button className="btn" style={{ marginTop: 10, marginBottom: 10 }}>Escolher outro sabor</button>
+                    </Link>
+                </>
+
+            )}
+
+            {restaurants.length === 0 && (
+                <>
+                    <p>
+                        O seu gelado nao está disponivel em mais nenhuma gelataria
+                </p>
+
+
+                    <Link to="/main">
+                        <button className="btn" style={{ marginTop: 10, marginBottom: 10 }}>Escolher outro sabor</button>
+                    </Link>
+                </>
+            )}
+
         </>
     )
 }

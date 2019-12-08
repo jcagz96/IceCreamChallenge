@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
 import api from '../../services/api';
+import { bold } from 'ansi-colors';
+import { Link } from 'react-router-dom';
 
 export default function Login({ history }) {
 
@@ -23,7 +25,7 @@ export default function Login({ history }) {
             localStorage.setItem('user', response.data.name);
             localStorage.setItem('type', response.data.loginType);
             localStorage.setItem('userIdClient', response.data.id);
-            history.push('/');
+            history.push('/main');
         }
         else {
             if (response.data.loginType === 'Restaurant') {
@@ -31,7 +33,7 @@ export default function Login({ history }) {
                 localStorage.setItem('user', response.data.name);
                 localStorage.setItem('type', response.data.loginType);
                 localStorage.setItem('userIdRestaurant', response.data.id);
-                history.push('/dashboardrestaurant');
+                history.push('/dashboardrestaurant', { restaurantName: response.data.name });
             }
             else {
                 console.log("erro no login");
@@ -69,6 +71,20 @@ export default function Login({ history }) {
 
                 <button className="btn" type="submit">Entrar</button>
             </form>
+
+
+            <Link to="/clientregister">
+                <button className="btnPointer" style={{ marginTop: 20, fontWeight: bold, color: '#000', border: 0, backgroundColor: '#fff' }}>Register as client</button>
+            </Link>
+
+            <Link to="/restaurantregister">
+                <button className="btnPointer" style={{ marginTop: 20, marginLeft: 138, fontWeight: bold, color: '#000', border: 0, backgroundColor: '#fff' }}>Register as Restaurant</button>
+            </Link>
+
+
+
+
+
         </>
     )
 }

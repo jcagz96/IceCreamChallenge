@@ -6,9 +6,10 @@ import socketio from 'socket.io-client';
 
 import './styles.css';
 
-export default function DashboardRestaurant() {
+export default function DashboardRestaurant(props) {
 
     const [requests, setRequests] = useState([]);
+    const [restaurantName, setRestaurantName] = useState('');
 
 
     const user_id = localStorage.getItem('userIdRestaurant');
@@ -21,24 +22,42 @@ export default function DashboardRestaurant() {
 
     useEffect(() => {
 
+        setRestaurantName(props.location.state.restaurantName);
+
         socket.on('order_request', data => {
             console.log("data-->", data);
             setRequests([...requests, data]);
         })
-    }, [requests, socket]);
+    }, [props.location.state.restaurantName, requests, socket]);
 
 
     async function handleAccept(id) {
         api.post(`/orders/${id}/approvals`);
+
+        setRequests(requests.filter(request => request._id !== id));
+
     }
 
     async function handleReject(id) {
         api.post(`/orders/${id}/rejections`);
+
+        setRequests(requests.filter(request => request._id !== id));
+
     }
 
     return (
         <>
-            <h1>Dashboard:</h1>
+            <h1> {restaurantName} Dashboard:</h1>
+
+
+            {requests.length > 0 && (
+                <h3>Os seguintes pedidos aguardam uma resposta:</h3>
+            )}
+
+            {requests.length === 0 && (
+                <h3>Aguardando a chegade de pedidos:</h3>
+            )}
+
             <div className="content">
 
 

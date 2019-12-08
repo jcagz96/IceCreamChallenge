@@ -83,3 +83,7 @@ body, input, button {
 .content button.btn:hover {
   background: #e14f50;
 }
+
+.btnPointer{
+  cursor: pointer;
+}

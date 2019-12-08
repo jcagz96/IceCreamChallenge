@@ -53,6 +53,6 @@ app.use(cors());
 app.use(express.json());
 app.use(routes);
 
-server.listen(3333, () => {
+server.listen(3333 || process.env.PORT, () => {
     console.log(`Server is running...`);
 });
